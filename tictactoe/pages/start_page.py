@@ -3,7 +3,7 @@ from typing import Callable
 
 
 class StartPage:
-    """Class for creating game start page UI
+    """Class to create game start page UI
     """
     selected_player: int = None
     label: tk.Label = None
@@ -32,7 +32,9 @@ class StartPage:
             background='#%02x%02x%02x' % (250, 240, 237),
             command=lambda: StartPage.set_player(root, 0))
 
-        btn_x.place(x=100, y=400 // 2 - 50, height=50, width=50)
+        # btn_x.place(x=100, y=400 // 2 - 50, height=50, width=50)
+        btn_x.place(x=root.winfo_width() // 2 - 60,
+                    y=root.winfo_width() // 2 - 50, height=50, width=50)
         StartPage.buttons[0] = btn_x
 
         btn_o = tk.Button(
@@ -40,7 +42,8 @@ class StartPage:
             background='#%02x%02x%02x' % (250, 240, 237),
             command=lambda: StartPage.set_player(root, 1))
 
-        btn_o.place(x=200, y=400 // 2 - 50, height=50, width=50)
+        btn_o.place(x=root.winfo_width() // 2 + 10,
+                    y=root.winfo_width() // 2 - 50, height=50, width=50)
         StartPage.buttons[1] = btn_o
 
         btn_continue = tk.Button(frame, text="Continue", font=(
