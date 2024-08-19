@@ -29,6 +29,7 @@ jobs:
           pip install -r requirements.txt  # Adjust the path if necessary
 
       - name: Build Executable
+        id: build_exec
         uses: sayyid5416/pyinstaller@v1
         with:
           python_ver: "3.10"
@@ -59,6 +60,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/${{ matrix.os }}-tictactoe${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
+          asset_path: ${{steps.build_exec.outputs.executable_path}}
+          # asset_path: dist/${{ matrix.os }}-tictactoe${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
           asset_name: tictactoe${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
           asset_content_type: ${{ (matrix.os == 'windows-latest') && 'application/x-msdownload' || 'application/x-executable' }}
