@@ -1,0 +1,66 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write  # Allows GitHub Actions to create and upload releases
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Base OS for the workflow
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]  # Define the platforms you want to support
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        cd tictactoe
+        pip install -r requirements.txt  # Adjust the path if necessary
+        cd ..
+
+    - name: Build Executable
+      run: |
+        cd tictactoe
+        if [[ $RUNNER_OS == 'Windows' ]]; then
+          pyinstaller --onefile --windowed --icon=assets/icon.ico --add-data "assets/icon.png;assets" --add-data "assets/icon.ico;assets" main.py
+          mkdir -p release
+          cp dist/main.exe release/main.exe
+        elif [[ $RUNNER_OS == 'Linux' ]]; then
+          pyinstaller --onefile --windowed --icon=assets/icon.ico --add-data "assets/icon.png:assets" --add-data "assets/icon.ico:assets" main.py
+          mkdir -p release
+          cp dist/main release/main
+        elif [[ $RUNNER_OS == 'macOS' ]]; then
+          pyinstaller --onefile --windowed --icon=assets/icon.icns --add-data "assets/icon.png:assets" --add-data "assets/icon.icns:assets" main.py
+          mkdir -p release
+          cp dist/main release/main
+        fi
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ github.sha }}
+        release_name: Release ${{ github.sha }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: tictactoe/release/main${{ (RUNNER_OS == 'Windows') && '.exe' || '' }}
+        asset_name: main${{ (RUNNER_OS == 'Windows') && '.exe' || '' }}
+        asset_content_type: ${{ (RUNNER_OS == 'Windows') && 'application/x-msdownload' || 'application/x-executable' }}
