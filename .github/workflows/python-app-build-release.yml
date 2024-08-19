@@ -45,6 +45,8 @@ jobs:
           release_name: Release ${{ github.sha }}
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Release Asset
         id: upload-release-asset
