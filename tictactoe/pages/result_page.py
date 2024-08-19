@@ -1,4 +1,5 @@
 import tkinter as tk
+from typing import Callable
 
 
 class ResultPage:
@@ -8,7 +9,7 @@ class ResultPage:
     play_again_button: tk.Button = None
 
     @staticmethod
-    def render_page(root: tk.Tk, player: int, handler: Callable[[str], None]):
+    def render_page(root: tk.Tk, text: str, width: int, height: int, handler: Callable[[str], None]):
         """Render the Page
 
         Args:
@@ -17,8 +18,9 @@ class ResultPage:
             handler (Callable[[str], None]): _description_
         """
         label = tk.Label(
-            root, text=f"Winner : {player}", font=("Helvetica", 30))
-        label.place(x=100, y=100)
+            root, text=text, font=("Helvetica", 30), background="white")
+
+        label.place(relx=0.5, rely=0.2, anchor='center')
 
         ResultPage.play_again_button = tk.Button(
             root, text="Play Again", font=("Helvetica", 20),
@@ -28,5 +30,5 @@ class ResultPage:
             root, text="Quit", font=("Helvetica", 20),
             command=lambda: handler("quit"))
 
-        ResultPage.play_again_button.place(x=100, y=200)
-        ResultPage.quit_button.place(x=100, y=300)
+        ResultPage.play_again_button.place(relx=0.1, rely=0.85)
+        ResultPage.quit_button.place(relx=0.7, rely=0.85)

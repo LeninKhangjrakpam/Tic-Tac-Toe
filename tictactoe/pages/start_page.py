@@ -10,7 +10,7 @@ class StartPage:
     buttons: list[tk.Button] = [None, None]
 
     @staticmethod
-    def render_page(root: tk.Tk, handler: Callable[[int], None]):
+    def render_page(root: tk.Tk, width: int, height: int,  handler: Callable[[int], None]):
         """Render the page
 
         Args:
@@ -24,31 +24,29 @@ class StartPage:
         frame = tk.Frame(root)
         frame.pack(fill=tk.BOTH, expand=True)
 
-        label = tk.Label(frame, text="Choose Player:", font=("Helvetica", 30))
-        label.pack(pady=(20, 10))
+        StartPage.label = tk.Label(
+            frame, text="Choose Player:", font=("Helvetica", 30))
+        StartPage.label.pack(pady=(20, 10))
 
         btn_x = tk.Button(
-            frame, text="X", font=("Helvetica", 20),
+            frame, text="X", font=("Helvetica", 60),
             background='#%02x%02x%02x' % (250, 240, 237),
             command=lambda: StartPage.set_player(root, 0))
 
-        # btn_x.place(x=100, y=400 // 2 - 50, height=50, width=50)
-        btn_x.place(x=root.winfo_width() // 2 - 60,
-                    y=root.winfo_width() // 2 - 50, height=50, width=50)
+        btn_x.place(relx=0.2, rely=0.3, height=100, width=100)
         StartPage.buttons[0] = btn_x
 
         btn_o = tk.Button(
-            frame, text="O", font=("Helvetica", 20),
+            frame, text="O", font=("Helvetica", 60),
             background='#%02x%02x%02x' % (250, 240, 237),
             command=lambda: StartPage.set_player(root, 1))
 
-        btn_o.place(x=root.winfo_width() // 2 + 10,
-                    y=root.winfo_width() // 2 - 50, height=50, width=50)
+        btn_o.place(relx=0.5, rely=0.3, height=100, width=100)
         StartPage.buttons[1] = btn_o
 
         btn_continue = tk.Button(frame, text="Continue", font=(
-            "Helvetica", 20), command=lambda: StartPage.confirm_selection(root, handler))
-        btn_continue.place(y=300, x=100)
+            "Helvetica", 20), command=lambda: StartPage.confirm_player(root, handler))
+        btn_continue.place(relx=0.5, rely=0.7, anchor='center')
 
     @staticmethod
     def set_player(root: tk.Tk, player: int):
@@ -60,7 +58,8 @@ class StartPage:
         """
         StartPage.selected_player = player
         StartPage.label.config(
-            text=f"Choose Player: {StartPage.selected_player}")
+            text=f"Choose Player: {StartPage.selected_player}",
+            font=("Helvetica", 30))
 
         # Highlight selected button
         for i, btn in enumerate(StartPage.buttons):
@@ -79,7 +78,8 @@ class StartPage:
         """
         if StartPage.selected_player == None:
             print("Please select a player, then confirm it")
-            StartPage.label.config(text="Please select a player first")
+            StartPage.label.config(
+                text="Please select a player first", font=("Helvetica", 14))
         else:
             print(f"Player {StartPage.selected_player} confirmed")
             handler(StartPage.selected_player)

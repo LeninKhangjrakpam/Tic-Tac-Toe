@@ -1,7 +1,10 @@
+from typing import Union, List
+
+
 class TicTacToe:
     """Class for implementing Tictactoe game"""
 
-    def __init__(self, initPlayer=0, initState: None | list[list[int | None]] = None) -> None:
+    def __init__(self, initPlayer=0, initState: Union[None, List[List[Union[int, None]]]] = None) -> None:
         """Iniitialise Game with the given init player, state
 
         Args:
@@ -14,18 +17,18 @@ class TicTacToe:
         if initState == None:
             self.boardRow = 3
             self.boardCol = 3
-            self.curState: list[list[int | None]] = [
+            self.curState: list[list[Union[int, None]]] = [
                 [None for _ in range(self.boardCol)] for _ in range(self.boardRow)
             ]
         else:
             self.boardRow = len(initState)
             self.boardCol = len(initState[0])
-            self.curState: list[list[int | None]] = initState
+            self.curState: list[list[Union[int, None]]] = initState
         self.playerNum = 2
         self.curPlayer = initPlayer
         self.histories = [list(self.curState)]
 
-    def check_action(self, action: dict, state: None | list[list[int]] = None) -> bool:
+    def check_action(self, action: dict, state: Union[None, list[list[int]]] = None) -> bool:
         """Check wether _action_ is valid or not  
         if `state` arg is not `None`, then `check_action` 
         will not check player turn validity
@@ -64,7 +67,7 @@ class TicTacToe:
 
         return True
 
-    def result(self, action: dict, state: None | list[list[int]]) -> list[list[int]]:
+    def result(self, action: dict, state: Union[None, list[list[int]]]) -> list[list[int]]:
         """Return the board state result after applying action to state  
         This function only return the new board state, and doesnot update the game state  
         To update game state with the action, use `TicTacToe.move()`
@@ -80,7 +83,7 @@ class TicTacToe:
         new_state[row][col] = player
         return new_state
 
-    def actions(self, state: None | list[list[int]]) -> list[tuple[int, int]]:
+    def actions(self, state: Union[None, List[List[int]]]) -> list[tuple[int, int]]:
         """Returns a list of valid actions that can be performed on the current board"""
         if state == None:
             state = self.curState
@@ -92,7 +95,7 @@ class TicTacToe:
                     avail_actions.append((rIndx, cIndx))
         return avail_actions
 
-    def move(self, action: dict, state: None | list[list[int]] = None) -> bool:
+    def move(self, action: dict, state: Union[None, List[List[int]]] = None) -> bool:
         """Perform action move to state  
         This function will update the game state with given action
         Returns:
@@ -111,7 +114,7 @@ class TicTacToe:
         self.histories.append(self.copy_2d_arr(self.curState))
         return True
 
-    def undo_move(self, action: dict, state: None | list[list[int]] = None) -> tuple[bool, list[list[int]]]:
+    def undo_move(self, action: dict, state: Union[None, List[List[int]]] = None) -> tuple[bool, list[list[int]]]:
         """This function will undo the given action to the state  
         If `state` is passes as None, then this function will update the game state and also return the current state   
         if `state` passed then this function will not update the game state, instead will just return the modified game state  
@@ -148,7 +151,7 @@ class TicTacToe:
         else:
             return True, new_state
 
-    def winner(self, state: None | list[list[int]] = None) -> tuple[int, int, list[tuple[int, int]]]:
+    def winner(self, state: Union[None, List[List[int]]] = None) -> tuple[int, int, list[tuple[int, int]]]:
         """Return the winner player  
 
         Returns:
@@ -182,7 +185,7 @@ class TicTacToe:
         """No winner and draw is detected"""
         return -1, None, None
 
-    def terminal(self, state: list[list[int]] | None = None) -> bool:
+    def terminal(self, state: Union[None, List[List[int]]] = None) -> bool:
         """Check wether a state is terminal or not
         A state can be terminal if no move can be made (i.e. all cells are filled)
         or a winner is detected
@@ -197,7 +200,7 @@ class TicTacToe:
         else:
             return False
 
-    def copy_2d_arr(self, arr: list[list[int | None]]) -> list[list[int | None]]:
+    def copy_2d_arr(self, arr: Union[None, List[List[int]]]) -> list[list[Union[int, None]]]:
         """Return a copy of arr"""
         return [
             list(ar) for ar in arr
@@ -279,7 +282,7 @@ class TicTacToe:
                 return True, mark, [(0, len(state[0]) - 1), (i, 0)]
         return False, None, None
 
-    def isDraw(self, state: list[list[int]] | None = None) -> bool:
+    def isDraw(self, state: Union[None, List[List[int]]] = None) -> bool:
         """Check wether a state is draw
         It checks only wether all the board cells are completely filled
         """
@@ -381,7 +384,7 @@ class TicTacToe:
         elif win_res == 1:
             return 1 if win_player == 1 else -1
 
-    def print_board(self, state: None | list[list[int]] = None):
+    def print_board(self, state: Union[None, List[List[int]]] = None):
         """Print the board state on terminal"""
         if state == None:
             state = self.curState

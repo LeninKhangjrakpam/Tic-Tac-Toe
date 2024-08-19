@@ -1,2 +1,4 @@
 dist/*
 idea.todo
+__pycache__/*
+*/__pycache__/*

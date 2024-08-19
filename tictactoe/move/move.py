@@ -1,5 +1,7 @@
-from ..game.game import TicTacToe
+from game.game import TicTacToe
 import random
+
+from typing import Union, List
 
 
 class ComputerMove:
@@ -10,7 +12,7 @@ class ComputerMove:
         self.MIN_PLAYER = 0
         self.MAX_PLAYER = 1
 
-    def compare(self, num0: int | None, num1: int | None, comparator) -> int | None:
+    def compare(self, num0: Union[int, None], num1: Union[int, None], comparator) -> Union[int, None]:
         """Function to compare value with None value. 
         Returns the value that result in `True` when `comparator` function is applied
         """
@@ -31,7 +33,7 @@ class ComputerMove:
 
         return b_action
 
-    def min_max(self, state: list[list[int]], player: int) -> tuple[int, dict | None]:
+    def min_max(self, state: list[list[int]], player: int) -> tuple[int, Union[dict, None]]:
         """Return the best action using minimax
         """
         # Base case
@@ -71,9 +73,9 @@ class ComputerMove:
         self,
         state: list[list[int]],
         player: int,
-        a: int | float = float('-inf'),
-        b: int | float = float('+inf')
-    ) -> tuple[int, dict | None]:
+        a: Union[int, float] = float('-inf'),
+        b: Union[int, float] = float('+inf')
+    ) -> tuple[int, Union[dict, None]]:
         """Return the best action using alpha beta prunning"""
         # Base Case
         if self.game.terminal(state=state):
