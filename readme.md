@@ -9,3 +9,6 @@ Alpha-Beta Tic-Tac-Toe is a classic Tic-Tac-Toe game implemented with a graphica
 - **AI Opponent**: An intelligent AI powered by the Alpha-Beta Pruning algorithm, capable of making strategic moves.
 - **Game Flow**: Alternates between human and AI turns, detects game outcomes (win, loss, or draw), and provides options to restart the game.
 - TODO
+
+## Game
+![Board](assets/board.png)

@@ -36,13 +36,13 @@ jobs:
           requirements: "requirements.txt"
           upload_exe_with_name: ${{ matrix.os }}-tictactoe
           options: --onefile --windowed --icon=assets/icon.ico
-      
+
       - name: Create Tag
         id: create_tag
         run: |
           TAG_NAME="v1.0.0-${GITHUB_SHA::7}"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
-        
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -59,6 +59,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: src/release/${{ matrix.os }}-tictactoe${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
+          asset_path: dist/${{ matrix.os }}-tictactoe${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
           asset_name: tictactoe${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
           asset_content_type: ${{ (matrix.os == 'windows-latest') && 'application/x-msdownload' || 'application/x-executable' }}
