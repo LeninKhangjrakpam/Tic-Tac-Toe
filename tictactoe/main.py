@@ -1,4 +1,5 @@
 import tkinter as tk
+import sys
 import os
 
 from app import GameApp
@@ -15,12 +16,20 @@ def main():
     # Make window non resizable
     root.wm_resizable(width=False, height=False)
     # Icon
-    root.iconbitmap(os.path.join("assets", "icon.ico"))
+    root.iconbitmap(resource_path(os.path.join("assets", "icon.ico")))
 
-    splash_icon_loc = os.path.join("assets", "icon.png")
+    splash_icon_loc = resource_path(os.path.join("assets", "icon.png"))
     app = GameApp(root, WIN_WIDTH, WIN_HEIGHT, splash_icon_loc)
 
     root.mainloop()
+
+
+def resource_path(rel_path):
+    if hasattr(sys, '_MEIPASS'):
+        base_path = getattr(sys, '_MEIPASS')
+    else:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, rel_path)
 
 
 if __name__ == "__main__":
