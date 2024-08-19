@@ -9,8 +9,8 @@ permissions:
   contents: write  # Allows GitHub Actions to create and upload releases
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # Base OS for the workflow
+  pyinstaller-build:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]  # Define the platforms you want to support
@@ -31,21 +31,13 @@ jobs:
         cd ..
 
     - name: Build Executable
-      run: |
-        cd tictactoe
-        if [[ $RUNNER_OS == 'Windows' ]]; then
-          pyinstaller --onefile --windowed --icon=assets/icon.ico --add-data "assets/icon.png;assets" --add-data "assets/icon.ico;assets" main.py
-          mkdir -p release
-          cp dist/main.exe release/main.exe
-        elif [[ $RUNNER_OS == 'Linux' ]]; then
-          pyinstaller --onefile --windowed --icon=assets/icon.ico --add-data "assets/icon.png:assets" --add-data "assets/icon.ico:assets" main.py
-          mkdir -p release
-          cp dist/main release/main
-        elif [[ $RUNNER_OS == 'macOS' ]]; then
-          pyinstaller --onefile --windowed --icon=assets/icon.icns --add-data "assets/icon.png:assets" --add-data "assets/icon.icns:assets" main.py
-          mkdir -p release
-          cp dist/main release/main
-        fi
+      uses: sayyid5416/pyinstaller@v1
+      with:
+        python_ver: '3.9'
+        spec: 'tictactoe/main.spec'
+        requirements: 'tictactoe/requirements.txt'
+        upload_exe_with_name: ${{ matrix.os }}-tictactoe
+        options: --onefile --windowed --icon=assets/icon.ico --add-data "tictactoe/assets/icon.png;assets" --add-data "tictactoe/assets/icon.ico;assets"
 
     - name: Create Release
       id: create_release
@@ -61,6 +53,6 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: tictactoe/release/main${{ (RUNNER_OS == 'Windows') && '.exe' || '' }}
-        asset_name: main${{ (RUNNER_OS == 'Windows') && '.exe' || '' }}
-        asset_content_type: ${{ (RUNNER_OS == 'Windows') && 'application/x-msdownload' || 'application/x-executable' }}
+        asset_path: src/release/${{ matrix.os }}-tictactoe${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
+        asset_name: tictactoe${{ (matrix.os == 'windows-latest') && '.exe' || '' }}
+        asset_content_type: ${{ (matrix.os == 'windows-latest') && 'application/x-msdownload' || 'application/x-executable' }}
