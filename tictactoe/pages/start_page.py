@@ -20,6 +20,7 @@ class StartPage:
         # Clear previous page
         for i in root.winfo_children():
             i.destroy()
+        StartPage.reset_state()
 
         frame = tk.Frame(root)
         frame.pack(fill=tk.BOTH, expand=True)
@@ -83,3 +84,11 @@ class StartPage:
         else:
             print(f"Player {StartPage.selected_player} confirmed")
             handler(StartPage.selected_player)
+
+    @staticmethod
+    def reset_state():
+        """Reset the state of the component
+        """
+        StartPage.selected_player: int = None
+        StartPage.label: tk.Label = None
+        StartPage.buttons: list[tk.Button] = [None, None]

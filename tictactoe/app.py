@@ -4,6 +4,7 @@ import tkinter as tk
 from game.game import TicTacToe
 from move.move import ComputerMove
 
+from pages.splash_page import SplashPage
 from pages.start_page import StartPage
 from pages.board_page import BoardPage
 from pages.result_page import ResultPage
@@ -14,22 +15,36 @@ class GameApp:
     """Class that implement the main game
     """
 
-    def __init__(self, master: tk.Tk, win_width, win_height):
+    def __init__(
+            self, master: tk.Tk,
+            win_width: int,
+            win_height: int,
+            splash_icon_loc: str):
         self.app = master
         self.win_width = win_width
         self.win_height = win_height
+        self.splash_icon_loc = splash_icon_loc
+
+        self.splash_icon = tk.PhotoImage(file=splash_icon_loc)
 
         self.game = None
         self.human_player_num = None
         self.ai_player = None
 
         print("Starting")
-        self.start_page()
+        self.splash_page()
+
+    def splash_page(self):
+        """Render the splash page on startup
+        """
+        SplashPage.render_page(
+            self.app, self.win_width, self.win_height, self.splash_icon)
+        self.app.after(1000, self.start_page)
 
     def start_page(self):
         """Render the game start Page
         """
-        # self.game_over = False
+
         StartPage.render_page(
             self.app, self.win_width,
             self.win_height,  self.start_page_handler)
@@ -121,43 +136,6 @@ class GameApp:
             self.result_page()
             return
 
-    # def board_page_handler(self, row: int, col: int):
-    #     """Handler for board cell click
-    #     Responsible for updating board state and transitioning to result page
-    #     """
-    #     print(row, col)
-    #     print(self.game.curPlayer, self.game.curState)
-    #     # if game is over
-    #     if self.game.terminal():
-    #         self.result_page()
-    #         return
-
-    #     # Human turn
-    #     action = {"row": row, "col": col, "player": self.game.curPlayer}
-    #     if not self.game.check_action(action):
-    #         # If move is not valid
-    #         BoardPage.display_warning("Invalid Move")
-    #         print("invalid move")
-    #         return
-
-    #     self.game.move(action)
-    #     print(self.game.curPlayer, self.game.curState)
-    #     # Render after human move
-    #     BoardPage.update_page(
-    #         self.app, self.game.curPlayer, self.game.curState)
-
-    #     # if game is over
-    #     if self.game.terminal():
-    #         self.result_page()
-    #         return
-
-    #     # AI Turn
-    #     action = self.ai_player.get_alpha_beta()
-    #     self.game.move(action)
-    #     # Render after ai move
-    #     BoardPage.update_page(
-    #         self.app, self.game.curPlayer, self.game.curState)
-
     def result_page(self):
         """Render the result page
         """
@@ -189,4 +167,4 @@ class GameApp:
         """Render the end page
         """
         EndPage.render_page(self.app)
-        self.app.after(800, lambda: sys.exit())
+        self.app.after(800, lambda: self.app.destroy())

@@ -1,4 +1,5 @@
 import tkinter as tk
+import os
 
 from app import GameApp
 
@@ -13,10 +14,11 @@ def main():
 
     # Make window non resizable
     root.wm_resizable(width=False, height=False)
+    # Icon
+    root.iconbitmap(os.path.join("assets", "icon.ico"))
 
-    root.iconbitmap("assets\icon.ico")
-
-    app = GameApp(root, WIN_WIDTH, WIN_HEIGHT)
+    splash_icon_loc = os.path.join("assets", "icon.png")
+    app = GameApp(root, WIN_WIDTH, WIN_HEIGHT, splash_icon_loc)
 
     root.mainloop()
 
