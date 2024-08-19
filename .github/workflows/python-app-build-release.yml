@@ -18,10 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python 3.9
+      - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
-          python-version: "3.9"
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
@@ -31,18 +31,24 @@ jobs:
       - name: Build Executable
         uses: sayyid5416/pyinstaller@v1
         with:
-          python_ver: "3.9"
+          python_ver: "3.10"
           spec: "main.spec"
           requirements: "requirements.txt"
           upload_exe_with_name: ${{ matrix.os }}-tictactoe
           options: --onefile --windowed --icon=assets/icon.ico
-
+      
+      - name: Create Tag
+        id: create_tag
+        run: |
+          TAG_NAME="v1.0.0-${GITHUB_SHA::7}"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+        
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: ${{ github.sha }}
-          release_name: Release ${{ github.sha }}
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: Release ${{ env.TAG_NAME }}
           draft: false
           prerelease: false
         env:
