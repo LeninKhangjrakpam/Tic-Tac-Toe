@@ -46,10 +46,13 @@ jobs:
           echo "TAG_NAME=$TAG_NAME"
           echo "tag $GITHUB_ENV.TAG_NAME"
           echo "env $GITHUB_ENV"
+          echo "tag ${{ env.TAG_NAME }}" 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Debug TAG_NAME
         run: |
-          echo "TAG_NAME from environment: ${{ env }}"
+          echo "TAG_NAME from environment: ${{ env.TAG_NAME }}"
         env:
           TAG_NAME: ${{ env.TAG_NAME }}
 
