@@ -69,7 +69,7 @@ jobs:
         uses: actions/create-release@v1
         with:
           # tag_name: ${{ env.TAG_NAME }}
-          tag_name: v1.0.0-${{ steps.vars.outputs.COMMIT_SHORT_SHA }}
+          tag_name: v1.0.0
           release_name: Release ${{ env.TAG_NAME }}
           draft: false
           prerelease: false
