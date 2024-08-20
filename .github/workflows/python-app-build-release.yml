@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest] # Define the platforms you want to support
+        os: [windows-latest] # Define the platforms you want to support
 
     steps:
       - uses: actions/checkout@v4
