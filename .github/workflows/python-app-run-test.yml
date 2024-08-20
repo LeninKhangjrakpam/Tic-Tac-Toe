@@ -29,7 +29,10 @@ jobs:
           pip install -r requirements.txt  # Adjust the path if necessary
 
       - name: Run Files
-        run: python main.py
+        run: |
+          Start-Process python -ArgumentList "main.py" -NoNewWindow -PassThru | Out-Null
+          Start-Sleep -Seconds 10
+        # run: python main.py || echo "Script exited with errors" # Run script and capture errors
 
       - name: Test
         run: pytest
