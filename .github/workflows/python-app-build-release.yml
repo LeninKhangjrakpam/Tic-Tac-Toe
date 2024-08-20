@@ -76,9 +76,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Log
-        run: |
-          echo upload_url: ${{ steps.create_release.outputs.upload_url }}
+      # - name: Log
+      #   run: |
+      #     echo upload_url: ${{ steps.create_release.outputs.upload_url }}
           
       - name: Upload Release Asset
         id: upload-release-asset
