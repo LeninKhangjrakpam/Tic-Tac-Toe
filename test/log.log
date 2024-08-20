@@ -1,0 +1,165 @@
+AB vs AB
+_ _ _ 
+_ _ _ 
+_ _ _ 
+Terminal:  False (-1, None, None)
+Player - 0 turn
+P1:  {'player': 0, 'row': 0, 'col': 0}
+player0 move: row: 0, col: 0
+O _ _ 
+_ _ _ 
+_ _ _ 
+Player - 1 turn
+player1 move: row: 1, col: 1
+O _ _ 
+_ X _ 
+_ _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 0, 'col': 1}
+player0 move: row: 0, col: 1
+O O _ 
+_ X _ 
+_ _ _ 
+Player - 1 turn
+player1 move: row: 0, col: 2
+O O X 
+_ X _ 
+_ _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 2, 'col': 0}
+player0 move: row: 2, col: 0
+O O X 
+_ X _ 
+O _ _ 
+Player - 1 turn
+player1 move: row: 1, col: 0
+O O X 
+X X _ 
+O _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 1, 'col': 2}
+player0 move: row: 1, col: 2
+O O X 
+X X O 
+O _ _ 
+Player - 1 turn
+player1 move: row: 2, col: 1
+O O X 
+X X O 
+O X _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 2, 'col': 2}
+player0 move: row: 2, col: 2
+O O X 
+X X O 
+O X O 
+Draw
+test_aa: elapsed time: 0.347085
+AB vs AB
+
+AB vs random
+_ _ _ 
+_ _ _ 
+_ _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 0, 'col': 0}
+player0 move: row: 0, col: 0
+O _ _ 
+_ _ _ 
+_ _ _ 
+Player - 1 turn
+player1 move: row: 2, col: 0
+O _ _ 
+_ _ _ 
+X _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 0, 'col': 1}
+player0 move: row: 0, col: 1
+O O _ 
+_ _ _ 
+X _ _ 
+Player - 1 turn
+player1 move: row: 0, col: 2
+O O X 
+_ _ _ 
+X _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 1, 'col': 1}
+player0 move: row: 1, col: 1
+O O X 
+_ O _ 
+X _ _ 
+Player - 1 turn
+player1 move: row: 1, col: 2
+O O X 
+_ O X 
+X _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 2, 'col': 1}
+player0 move: row: 2, col: 1
+O O X 
+_ O X 
+X O _ 
+Winner: 0, winStrip: [(0, 1), (2, 1)]
+test_ar: elapsed time: 0.286266
+AB vs random
+
+minimax vs minimax
+_ _ _ 
+_ _ _ 
+_ _ _ 
+Terminal:  False (-1, None, None)
+Player - 0 turn
+P1:  {'player': 0, 'row': 0, 'col': 0}
+player0 move: row: 0, col: 0
+O _ _ 
+_ _ _ 
+_ _ _ 
+Player - 1 turn
+player1 move: row: 1, col: 1
+O _ _ 
+_ X _ 
+_ _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 0, 'col': 1}
+player0 move: row: 0, col: 1
+O O _ 
+_ X _ 
+_ _ _ 
+Player - 1 turn
+player1 move: row: 0, col: 2
+O O X 
+_ X _ 
+_ _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 2, 'col': 0}
+player0 move: row: 2, col: 0
+O O X 
+_ X _ 
+O _ _ 
+Player - 1 turn
+player1 move: row: 1, col: 0
+O O X 
+X X _ 
+O _ _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 1, 'col': 2}
+player0 move: row: 1, col: 2
+O O X 
+X X O 
+O _ _ 
+Player - 1 turn
+player1 move: row: 2, col: 1
+O O X 
+X X O 
+O X _ 
+Player - 0 turn
+P1:  {'player': 0, 'row': 2, 'col': 2}
+player0 move: row: 2, col: 2
+O O X 
+X X O 
+O X O 
+Draw
+test_mm: elapsed time: 9.648503
+minimax vs minimax
+

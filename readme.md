@@ -1,5 +1,5 @@
 [![Build and Release](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/actions/workflows/python-app-build-release.yml/badge.svg?branch=main)](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/actions/workflows/python-app-build-release.yml)
-
+[![Run and Test](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/actions/workflows/python-app-run-test.yml/badge.svg)](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/actions/workflows/python-app-run-test.yml)
 # Alpha-Beta Tic-Tac-Toe
 
 Final Project done as part of CIP   
