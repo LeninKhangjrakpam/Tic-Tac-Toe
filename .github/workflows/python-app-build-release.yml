@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest] # Define the platforms you want to support
+        os: [ubuntu-latest, windows-latest] # Define the platforms you want to support
 
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt  # Adjust the path if necessary
 
       - name: Build Executable
@@ -43,6 +42,7 @@ jobs:
         run: |
           TAG_NAME="v1.0.0-${GITHUB_SHA::7}"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          echo 
 
       - name: Create Release
         id: create_release
@@ -54,7 +54,11 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          
+      - name: Log
+        run: |
+          echo upload_url: ${{ steps.create_release.outputs.upload_url }}
+          
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
