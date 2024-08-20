@@ -1,5 +1,6 @@
 [![Build and Release](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/actions/workflows/python-app-build-release.yml/badge.svg?branch=main)](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/actions/workflows/python-app-build-release.yml)
 [![Run and Test](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/actions/workflows/python-app-run-test.yml/badge.svg)](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/actions/workflows/python-app-run-test.yml)
+
 # Alpha-Beta Tic-Tac-Toe
 
 Final Project done as part of CIP   
@@ -12,5 +13,47 @@ Alpha-Beta Tic-Tac-Toe is a classic Tic-Tac-Toe game implemented with a graphica
 - **Game Flow**: Alternates between human and AI turns, detects game outcomes (win, loss, or draw), and provides options to restart the game.
 - TODO
 
+## Usage
+### Download Relase
+- To get the latest release:  [Release](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/releases)  
+- After downloading the executables, double click on it to start the app
+
+### Build from Source
+- To build from source, download the source code from [Release](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/releases)  
+- Unzip the `.zip` file, then run the following command
+```bash
+cd tictactoe
+```
+- Create a virtual env with python version `>=3.9`
+```bash 
+python -m venv venv
+source venv/Scripts/activate # Activate it
+```
+```bash
+pip install -r requirements.txt     # download dependencies
+pyinstaller main.schema             # build
+```
+- Now, you'll find your build in `dist/` folder as `main.exe`
+
 ## Game
 ![Board](assets/board.png)
+
+
+## Development
+- Git clone the repo
+- Run `python main.py` to start the app
+- For building binaries: `pyinstaller main.schema`
+  
+
+### Test Project
+```bash
+cd tictactoe
+pytest
+```
+View test log - [test.log](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/blob/main/test/test.log)
+
+### Benchmark
+View Benchmark - [log.log](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/blob/main/test/log.log)
+```bash
+python test/benchmark.py
+```
