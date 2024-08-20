@@ -42,8 +42,8 @@ jobs:
         run: |
           $shortSha = $env:GITHUB_SHA.Substring(0, 7)
           $TAG_NAME = "v1.0.0-$shortSha"
-          "$env:TAG_NAME=$TAG_NAME" | Out-File -Append -FilePath $env:GITHUB_ENV
-          Write-Output "TAG_NAME=$TAG_NAME"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          echo "TAG_NAME=$TAG_NAME"
 
       - name: Create Release
         id: create_release
