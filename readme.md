@@ -46,14 +46,16 @@ pyinstaller main.schema             # build
   
 
 ### Test Project
+View test log - `test/test.log`
+
 ```bash
 cd tictactoe
 pytest
 ```
-View test log - [test.log](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/blob/main/test/test.log)
 
 ### Benchmark
-View Benchmark - [log.log](https://github.com/LeninKhangjrakpam/Tic-Tac-Toe/blob/main/test/log.log)
+View Benchmark - `test/log.log`
+
 ```bash
 python test/benchmark.py
 ```
