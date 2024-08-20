@@ -37,28 +37,36 @@ jobs:
           upload_exe_with_name: ${{ matrix.os }}-tictactoe
           options: --onefile --windowed --icon=assets/icon.ico
 
-      - name: Create Tag
-        id: create_tag
-        run: |
-          $shortSha = $env:GITHUB_SHA.Substring(0, 7)
-          $TAG_NAME = "v1.0.0-$shortSha"
-          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
-          echo "TAG_NAME=$TAG_NAME" >>  "$GITHUB_OUTPUT"
-          echo "TAG_NAME=$TAG_NAME"
+      # - name: Create Tag
+      #   id: create_tag
+      #   run: |
+      #     $shortSha = $env:GITHUB_SHA.Substring(0, 7)
+      #     $TAG_NAME = "v1.0.0-$shortSha"
+      #     echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+      #     echo "TAG_NAME=$TAG_NAME" >>  "$GITHUB_OUTPUT"
+      #     echo "TAG_NAME=$TAG_NAME"
           
-      - name: Debug TAG_NAME
+      # - name: Debug TAG_NAME
+      #   run: |
+      #     echo "TAG_NAME from environment: ${{ steps.create_tag.outputs.TAG_NAME }} and $TAG_NAME"
+      #   env:
+      #     TAG_NAME: ${{ steps.create_tag.outputs.TAG_NAME }}
+          
+      - name: Set short git commit SHA
+        id: vars
         run: |
-          echo "TAG_NAME from environment: ${{ steps.create_tag.outputs.TAG_NAME }} and $TAG_NAME"
-        env:
-          TAG_NAME: ${{ steps.create_tag.outputs.TAG_NAME }}
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
 
+      - name: Confirm git commit SHA output
+        run: echo ${{ env.COMMIT_SHORT_SHA }}
           
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
           # tag_name: ${{ env.TAG_NAME }}
-          tag_name: ${{ steps.create_tag.outputs.TAG_NAME }}
+          tag_name: v1.0.0-${{ env.COMMIT_SHORT_SHA }}
           release_name: Release ${{ env.TAG_NAME }}
           draft: false
           prerelease: false
