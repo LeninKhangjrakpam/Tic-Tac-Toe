@@ -56,19 +56,20 @@ jobs:
         id: vars
         run: |
           $calculatedSha = git rev-parse --short ${{ github.sha }}
-          echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
+          echo "COMMIT_SHORT_SHA=$calculatedSha" >> "$GITHUB_ENV"
+          echo "COMMIT_SHORT_SHA=$calculatedSha" >> "$GITHUB_OUTPUT"
           echo "COMMIT_SHORT_SHA=$COMMIT_SHORT_SHA"
           echo "COMMIT_SHORT_SHA=${{ env.COMMIT_SHORT_SHA }}"
 
       - name: Confirm git commit SHA output
-        run: echo "${{ env.COMMIT_SHORT_SHA }}"
+        run: echo "${{ env.COMMIT_SHORT_SHA }} | ${{ steps.vars.outputs.COMMIT_SHORT_SHA }}"
           
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
           # tag_name: ${{ env.TAG_NAME }}
-          tag_name: v1.0.0-${{ env.COMMIT_SHORT_SHA }}
+          tag_name: v1.0.0-${{ steps.vars.outputs.COMMIT_SHORT_SHA }}
           release_name: Release ${{ env.TAG_NAME }}
           draft: false
           prerelease: false
