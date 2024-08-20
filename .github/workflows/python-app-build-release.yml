@@ -44,7 +44,15 @@ jobs:
           $TAG_NAME = "v1.0.0-$shortSha"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
           echo "TAG_NAME=$TAG_NAME"
+          echo ${{ env.TAG_NAME }}
+          
+      - name: Debug TAG_NAME
+        run: |
+          echo "TAG_NAME from environment: ${{ env.TAG_NAME }}"
+        env:
+          TAG_NAME: ${{ env.TAG_NAME }}
 
+          
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
